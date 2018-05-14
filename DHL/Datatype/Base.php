@@ -146,7 +146,9 @@ abstract class Base
                 }
                 else
                 {
-                    $xmlWriter->writeElement($name, $this->$name);
+					if ($name == "ReferenceID")
+						$xmlWriter->writeRaw("<" . $name . ">" . $this->$name . "</" . $name . ">");
+                    else $xmlWriter->writeElement($name, $this->$name);
                 }
             }
         }

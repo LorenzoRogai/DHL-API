@@ -136,6 +136,14 @@ class ShipmentResponse extends Base
             'fractionDigits' => '3',
             'totalDigits' => '18',
         ), 
+		'ShippingChargeInUSD' => array(
+            'type' => 'string',
+            'required' => false,
+            'subobject' => false,
+            'comment' => 'ShippingChargeInUSD',
+            'fractionDigits' => '3',
+            'totalDigits' => '18',
+        ), 
         'InsuredAmount' => array(
             'type' => 'string',
             'required' => false,
@@ -197,7 +205,7 @@ class ShipmentResponse extends Base
             'subobject' => true,
             'multivalues' => true,
         ), 
-        'BarCodes' => array(
+        'Barcodes' => array(
             'type' => 'BarCodes',
             'required' => false,
             'subobject' => true,
@@ -321,6 +329,11 @@ class ShipmentResponse extends Base
         ), 
         'LabelImage' => array(
             'type' => 'LabelImage',
+            'required' => false,
+            'subobject' => true,
+        ), 
+		'Label' => array(
+            'type' => 'Label',
             'required' => false,
             'subobject' => true,
         ), 

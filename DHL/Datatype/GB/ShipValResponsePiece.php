@@ -94,7 +94,7 @@ class ShipValResponsePiece extends Base
             'subobject' => false,
             'comment' => 'Weight of piece or shipment',
             'fractionDigits' => '3',
-            'minInclusive' => '0.000',
+            'minInclusive' => '-999999.999',
             'maxInclusive' => '999999.999',
             'totalDigits' => '10',
         ), 

@@ -143,6 +143,9 @@ abstract class Base extends BaseDataType
         $xmlWriter->writeAttribute('xmlns:req', self::DHL_REQ);
         $xmlWriter->writeAttribute('xmlns:xsi', self::DHL_XSI);
         $xmlWriter->writeAttribute('xsi:schemaLocation', self::DHL_REQ . ' ' .$this->_serviceXSD);
+		
+		if ($this->_serviceXSD == "book-pickup-global-req_EA.xsd" || $this->_serviceXSD == "cancel-pickup-global-req_EA.xsd")
+			$xmlWriter->writeAttribute('schemaVersion', '1.0');
     
         if ($this->_displaySchemaVersion) 
         {
@@ -230,11 +233,14 @@ abstract class Base extends BaseDataType
     {
         $xml = simplexml_load_string(str_replace('req:', '', $xml));
 
-        if ((string) $xml->Response->Status->Condition->ConditionCode != '')
-        {
-            $errorMsg = ((string) $xml->Response->Status->Condition->ConditionCode) . ' : ' . ((string) $xml->Response->Status->Condition->ConditionData);
-            throw new \Exception('Error returned from DHL webservice : ' . $errorMsg);
-        }
+		if (isset($xml->Response->Status->Condition->ConditionCode))
+		{
+			if ((string) $xml->Response->Status->Condition->ConditionCode != '')
+			{
+				$errorMsg = ((string) $xml->Response->Status->Condition->ConditionCode) . ' : ' . ((string) $xml->Response->Status->Condition->ConditionData);
+				throw new \Exception('Error returned from DHL webservice : ' . $errorMsg);
+			}
+		}
 
         $parts = explode('\\', get_class($this));
         $className = array_pop($parts);
